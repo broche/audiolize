@@ -159,7 +159,7 @@ function audio_loaded(){
 	timeByteData = new Uint8Array(analyser.frequencyBinCount);
 
 	//Begin Visualizer
-	step();
+	step(render);
 }
 function render(freq){
 	ctx.clearRect(0,0,500,500);
@@ -172,10 +172,10 @@ function render(freq){
 	if($("#bar_graphs").attr("checked")) draw_line_graphs(freq);
 }
 
-function step(){
+function step(callback){
 
-	update_analyser_data(function(freq){render(freq)});
-
+	update_analyser_data();
+	callback(get_average_frequency());
 	//If the user has clicked on any song during the
 	// visualization, this flag is set so that a loading
 	// message is draw on the screen, and animation loop 
@@ -188,16 +188,15 @@ function step(){
 		return;
 	}else{
 		requestAnimFrame(function(){
-			step();
+			step(callback);
 		});
 	}
 };
-function update_analyser_data(callback){
+function update_analyser_data(){
 	//Obtain the most recent time and frequency data;
 	analyser.smoothingTimeConstant = 0.1;
 	analyser.getByteFrequencyData(freqByteData);
 	analyser.getByteTimeDomainData(timeByteData);
-	callback(get_average_frequency());
 }
 function get_average_frequency(){
 	var length = freqByteData.length;
