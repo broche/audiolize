@@ -1,5 +1,5 @@
 //Canvas Variables
-var ctx, canvas;
+var visual_canvas;
 
 //Audio Variables
 var audioContext;
@@ -50,8 +50,8 @@ var circles = true;
 window.onload = function() {
 
 	//Initialize the canvas variables
-	canvas = $("#music")[0]
-	ctx = canvas.getContext("2d");
+	visual_canvas = $("#music")[0]
+	var ctx = visual_canvas.getContext("2d");
 
 	//Display prompt
 	ctx.font = "15pt Century Gothic";
@@ -65,6 +65,7 @@ window.onload = function() {
 
 }
 function initialize_events(){
+	var ctx = visual_canvas.getContext("2d");
 	//Set up event when the mouse moves
 	$("#music").mousemove(function(e) {
 		//get mouse position
@@ -76,7 +77,7 @@ function initialize_events(){
         mouse_down = true;
         circles ? circles = false : circles = true;
     });
-     $("#music").mouseup(function(e) {
+    $("#music").mouseup(function(e) {
         mouse_down = false;
     });
 	$("#song_select").children().click(function(){
@@ -145,6 +146,7 @@ function loadAudioBuffer(url){
 function audio_loaded(){
 	//Allow for animation, and clear the screen
 	song_change = false;
+	var ctx = visual_canvas.getContext("2d");
 	ctx.clearRect(0,0,500,500);
 
 	//connect the audio buffer to the source buffer
@@ -159,27 +161,27 @@ function audio_loaded(){
 	timeByteData = new Uint8Array(analyser.frequencyBinCount);
 
 	//Begin Visualizer
-	step(render);
+	step(visual_canvas, render);
 }
-function render(freq){
+function render(canvas, freq){
+	var ctx = canvas.getContext("2d");
 	ctx.clearRect(0,0,500,500);
 	//This is checking to see if the checkbox associated
 	// with the certain visual is checked, and if so, it will
 	// render the visual.  Otherwise, it will not.
-	if($('#background').attr('checked')) draw_spiral(freq);
-	if($('#freq_graphs').attr('checked')) draw_frequency_graphs(freqByteData.length);
-	if($("#circles").attr("checked")) draw_circles(freq);
-	if($("#bar_graphs").attr("checked")) draw_line_graphs(freq);
+	if($('#background').attr('checked')) draw_spiral(canvas, freq);
+	if($('#freq_graphs').attr('checked')) draw_frequency_graphs(canvas, freqByteData.length);
+	if($("#circles").attr("checked")) draw_circles(canvas, freq);
+	if($("#bar_graphs").attr("checked")) draw_line_graphs(canvas, freq);
 }
 
-function step(callback){
-
+function step(canvas, render_callback){
 	update_analyser_data();
-	callback(get_average_frequency());
+	render_callback(canvas, get_average_frequency());
 	//If the user has clicked on any song during the
 	// visualization, this flag is set so that a loading
 	// message is draw on the screen, and animation loop 
-	// will stop and start again once the song is loaded.
+	// will stop and start agasin once the song is loaded.
 	if(song_change){
 		ctx.clearRect(0,0,500,500);
 		ctx.font = "15pt Century Gothic";
@@ -188,7 +190,7 @@ function step(callback){
 		return;
 	}else{
 		requestAnimFrame(function(){
-			step(callback);
+			step(canvas, render_callback);
 		});
 	}
 };
@@ -206,7 +208,8 @@ function get_average_frequency(){
 	}
 	return sum / length;
 }
-function draw_frequency_graphs(length){
+function draw_frequency_graphs(canvas, length){
+	var ctx = canvas.getContext("2d");
 	//This draws the Bottom Frequency graph and calculates
 	// the average frequency used for other visualizations
 	ctx.beginPath();
@@ -243,7 +246,8 @@ function draw_frequency_graphs(length){
     ctx.fill();
 }
 
-function draw_spiral(freq){
+function draw_spiral(canvas, freq){
+	var ctx = canvas.getContext("2d");
 	ctx.beginPath();
 	var x, y;
 	for (var i=0; i< 720; i++) {
@@ -256,8 +260,8 @@ function draw_spiral(freq){
   	ctx.lineWidth = freq/100;
   	ctx.stroke();
 }
-function draw_circles(freq){
-
+function draw_circles(canvas, freq){
+	var ctx = canvas.getContext("2d");
 	//This is drawing the circles and the trailing circles
 	var divided_by =15;
 	var color_id = 0;
@@ -285,8 +289,8 @@ function draw_circles(freq){
     	color_id++;
 	}
 }
-function draw_line_graphs(freq){
-
+function draw_line_graphs(canvas, freq){
+	var ctx = canvas.getContext("2d");
 	//Array of average frequency data
 	averages.push(freq);
 
