@@ -37,7 +37,7 @@ var circles = true;
 
 //Standard way to do animation in javascript
 // none of that setInterval B.S.
-window.requestAnimFrame = (function (callback) {
+window.requestAnimFrame = (function () {
 	return window.requestAnimationFrame ||
 		window.webkitRequestAnimationFrame ||
 		window.mozRequestAnimationFrame ||
@@ -75,11 +75,11 @@ function initialize_events() {
 		pos_y = e.pageY - this.offsetTop;
 		mouse_positions.push([pos_x, pos_y]);
 	});
-	$("#music").mousedown(function (e) {
+	$("#music").mousedown(function () {
 		mouse_down = true;
 		circles = !circles;
 	});
-	$("#music").mouseup(function (e) {
+	$("#music").mouseup(function () {
 		mouse_down = false;
 	});
 	$("#song_select").children().click(function () {
@@ -276,7 +276,7 @@ function draw_spiral(canvas, freq) {
 	ctx.stroke();
 }
 function draw_circles(canvas, freq) {
-	var ctx = canvas.getContext("2d"), divided_by, color_id, i, size, count;
+	var ctx = canvas.getContext("2d"), divided_by, color_id, i, size;
 	//This is drawing the circles and the trailing circles
 	divided_by = 15;
 	color_id = 0;
