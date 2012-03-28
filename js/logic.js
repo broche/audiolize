@@ -82,19 +82,17 @@ function initialize_events(){
     });
 	$("#song_select").children().click(function(){
 		if(!already){
-
-			already = true;
 			ctx.clearRect(0, 0, 500, 500);
 			ctx.font = "15pt Century Gothic";
 			ctx.fillStyle = "red";
 			ctx.fillText("loading song...", 175, 250);
+			already = true;
 			$("#song_id").html(this.alt);
 			var song_url = "sounds/" + this.id + ".ogg";
 			loadAudio(song_url);			
 		}else{
 			source.buffer = audioBuffer;
 			source.noteOff(0);
-			ctx.clearRect(0, 0, 500, 500);
 			song_change = true;
 			$("#song_id").html(this.alt);
 			var song_url = "sounds/" + this.id + ".ogg";
@@ -183,12 +181,13 @@ function step(canvas, render_callback){
 	// message is draw on the screen, and animation loop 
 	// will stop and start agasin once the song is loaded.
 	if(song_change){
-		ctx.clearRect(0,0,500,500);
+		var ctx = canvas.getContext("2d");
+		ctx.clearRect(0, 0, 500, 500);
 		ctx.font = "15pt Century Gothic";
 		ctx.fillStyle = "red";
 		ctx.fillText("loading song...", 175, 250);
-		return;
-	}else{
+	}
+	else{
 		requestAnimFrame(function(){
 			step(canvas, render_callback);
 		});
