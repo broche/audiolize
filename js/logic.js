@@ -20,7 +20,8 @@ var already = false;
 //Stores 25 most recent moust positions
 var mouse_positions = [];
 var colors = ["#1F6CA3", "#1F6CA3", "#1F6CA3", "#6397BB", "#6397BB", "#6397BB",
-"#5DB8F8", "#5DB8F8", "#5DB8F8", "#87CBFC", "#87CBFC", "#87CBFC", "#A7D9FC", "#A7D9FC", "#A7D9FC"];
+         "#5DB8F8", "#5DB8F8", "#5DB8F8", "#87CBFC", "#87CBFC", "#87CBFC",
+         "#A7D9FC", "#A7D9FC", "#A7D9FC"];
 
 var mouse_down = false;
 
@@ -35,22 +36,22 @@ var circles = true;
 
 //Standard way to do animation in javascript
 // none of that setInterval B.S.
- window.requestAnimFrame = (function(callback){
+window.requestAnimFrame = (function (callback) {
     return window.requestAnimationFrame ||
-    window.webkitRequestAnimationFrame ||
-    window.mozRequestAnimationFrame ||
-    window.oRequestAnimationFrame ||
-    window.msRequestAnimationFrame ||
-    function(callback){
-        window.setTimeout(callback, 5000 / 60);
-    };
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback) {
+            window.setTimeout(callback, 5000 / 60);
+        };
 })();
 
 //This function will set up all of the events
-window.onload = function() {
+window.onload = function () {
 
 	//Initialize the canvas variables
-	visual_canvas = $("#music")[0]
+	visual_canvas = $("#music")[0];
 	var ctx = visual_canvas.getContext("2d");
 
 	//Display prompt
