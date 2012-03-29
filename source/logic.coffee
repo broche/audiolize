@@ -1,9 +1,11 @@
+globals = exports ? this
+
 # Canvas to draw on
 visualCanvas = null
 
 # Audio related variables
-audioContext = analyser = source = window.freqByteData = timeByteData = audioBuffer = null
-window.averages = []
+audioContext = analyzer = source = globals.freqByteData = timeByteData = audioBuffer = null
+globals.averages = []
 
 # The current mouse position
 posX = posY = 250
@@ -11,8 +13,8 @@ posX = posY = 250
 # yes if at least one song has already been loaded
 already = no
 
-window.mousePositions = []
-window.colors = [
+globals.mousePositions = []
+globals.colors = [
   "#1F6CA3"
   "#1F6CA3"
   "#1F6CA3"
@@ -37,20 +39,20 @@ mouseDown = no
 songChange = no
 
 # Flag for drawing squares or circles
-window.circles = yes
+globals.circles = yes
 
-window.previousFrequencyData = []
+globals.previousFrequencyData = []
 
-window.requestAnimFrame =
-  window.requestAnimationFrame or
-  window.webkitRequestAnimationFrame or
-  window.mozRequestAnimationFrame or
-  window.oRequestAnimationFrame or
-  window.msRequestAnimationFrame or
+globals.requestAnimFrame =
+  globals.requestAnimationFrame or
+  globals.webkitRequestAnimationFrame or
+  globals.mozRequestAnimationFrame or
+  globals.oRequestAnimationFrame or
+  globals.msRequestAnimationFrame or
   (callback) ->
-    window.setTimeout callback, 5000 / 60
+    globals.setTimeout callback, 5000 / 60
 
-window.onload = ->
+globals.onload = ->
   # Initialize the canvas variables.
   visualCanvas = $("#music")[0]
   ctx = visualCanvas.getContext "2d"
@@ -62,7 +64,7 @@ window.onload = ->
   initializeEvents()
 
   # Make a web audio context to play sounds.
-  audioContext = new window.webkitAudioContext()
+  audioContext = new globals.webkitAudioContext()
 
 initializeEvents = ->
   $("#music").mousemove (e) ->
@@ -71,7 +73,7 @@ initializeEvents = ->
     mousePositions.push [posX, posY]
   $("#music").mousedown ->
     mouseDown = yes
-    window.circles = !circles
+    globals.circles = !circles
   $("#music").mouseup ->
     mouseDown = no
   $("#song_select").children().click ->
@@ -101,14 +103,14 @@ loadAudio = (url) ->
   source = audioContext.createBufferSource()
 
   # Create an analyzer for the audio.
-  analyser = audioContext.createAnalyser()
-  analyser.fftSize = 1024
+  analyzer = audioContext.createAnalyser()
+  analyzer.fftSize = 1024
 
   # Connect the buffer source to the analyzer.
-  source.connect analyser
+  source.connect analyzer
 
   # Then connect the analyzer to the speakers
-  analyser.connect audioContext.destination
+  analyzer.connect audioContext.destination
 
   # Load the chosen song.
   loadAudioBuffer url
@@ -137,8 +139,8 @@ audioLoaded = ->
   source.noteOn 0
 
   # Initialize the two arrays that will store frequency and time data.
-  window.freqByteData = new Uint8Array analyser.frequencyBinCount
-  timeByteData = new Uint8Array analyser.frequencyBinCount
+  globals.freqByteData = new Uint8Array analyzer.frequencyBinCount
+  timeByteData = new Uint8Array analyzer.frequencyBinCount
 
   # Begin the visualizer.
   console.log $("#renderer")[0].value
@@ -167,13 +169,13 @@ step = (canvas, renderCallback) ->
 
 updateAnalyserData = ->
   # Obtain the most recent time and frequency data.
-  analyser.smoothingTimeConstant = 0.1
-  analyser.getByteFrequencyData window.freqByteData
-  analyser.getByteTimeDomainData timeByteData
+  analyzer.smoothingTimeConstant = 0.1
+  analyzer.getByteFrequencyData globals.freqByteData
+  analyzer.getByteTimeDomainData timeByteData
 
 getAverageFrequency = ->
-  length = window.freqByteData.length
+  length = globals.freqByteData.length
   sum = 0
   for i in [0...length]
-    sum += window.freqByteData[i]
+    sum += globals.freqByteData[i]
   sum / length
