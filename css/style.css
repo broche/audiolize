@@ -18,6 +18,11 @@ canvas{
 	box-shadow: 0px 2px 5px #000000;
 	z-index: -200;
 }
+select{
+	position: absolute;
+	left: 5;
+	top: 5;
+}
 img{
 	height: 68px;
 	width: 68px;

@@ -41,6 +41,22 @@ function draw_past_frequency_graphs(canvas) {
 		ctx.stroke();
 		ctx.fill();
 
+		ctx.beginPath();
+		for (j = sub_length - sub_length / 2; j >= 0; --j) {
+			if (j === sub_length - sub_length / 2) {
+				ctx.moveTo(j * ((1200 / sub_length) * reach), 0);
+			} else if (j === 0) {
+				ctx.lineTo(j * ((1200 / sub_length) * reach), 0);
+			} else {
+				ctx.lineTo(j * ((1200 / sub_length) * reach), previous_frequency_data[i][j]);
+			}
+		}
+		ctx.lineWidth = 2;
+		ctx.strokeStyle = "#000";
+		ctx.fillStyle = colors[i % 15];
+		ctx.stroke();
+		ctx.fill();
+
 		reach -= 0.2;
 	}
 }

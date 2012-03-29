@@ -164,8 +164,17 @@ function audio_loaded() {
 	timeByteData = new Uint8Array(analyser.frequencyBinCount);
 
 	//Begin Visualizer
-	step(visual_canvas, main_render);
-	//step(visual_canvas, layered_render);
+	console.log($("#renderer")[0].value);
+	switch(parseInt($("#renderer")[0].value)) {
+		case 1:
+			step(visual_canvas, main_render);
+			break;
+		case 2:
+			step(visual_canvas, layered_render);
+			break;
+		default:
+			step(visual_canvas, main_render);
+	}
 }
 
 function step(canvas, render_callback) {
