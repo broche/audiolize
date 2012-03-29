@@ -150,7 +150,7 @@ audioLoaded = ->
 
 step = (canvas, renderCallback) ->
   updateAnalyserData()
-  update_previous_frequency_data()
+  updatePreviousFrequencyData()
   renderCallback canvas, getAverageFrequency()
 
   # If the user clicked on any song while the visualizer is running, this flag
