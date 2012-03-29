@@ -1,4 +1,4 @@
-function render(canvas, freq) {
+function main_render(canvas, freq) {
 	var ctx = canvas.getContext("2d");
 	ctx.clearRect(0, 0, 500, 500);
 	//This is checking to see if the checkbox associated
