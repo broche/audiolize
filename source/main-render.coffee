@@ -1,6 +1,6 @@
 globals = exports ? this
 
-globals.main_render = (canvas, freq) ->
+globals.mainRender = (canvas, freq) ->
   ctx = canvas.getContext "2d"
   ctx.clearRect 0, 0, 500, 500
 

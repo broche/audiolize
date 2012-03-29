@@ -1,25 +1,25 @@
 globals = exports ? this
 
-globals.layered_render = (canvas, freq) ->
+globals.layeredRender = (canvas, freq) ->
   ctx = canvas.getContext "2d"
   ctx.clearRect 0, 0, 500, 500
 
   drawPastFrequencyGraphs canvas
 
 globals.updatePreviousFrequencyData = ->
-  previous_frequency_data.push freqByteData
+  previousFrequencyData.push freqByteData
 
-  if previous_frequency_data.length > 25
-    previous_frequency_data.splice 0, 1
+  if previousFrequencyData.length > 25
+    previousFrequencyData.splice 0, 1
 
 drawPastFrequencyGraphs = (canvas) ->
-  length = previous_frequency_data.length
+  length = previousFrequencyData.length
   ctx = canvas.getContext "2d"
   reach = 6
 
   startLength = if length == 0 then 0 else length - 1
   for i in [startLength..0]
-    subLength = previous_frequency_data[i].length
+    subLength = previousFrequencyData[i].length
     ctx.beginPath()
     for j in [0...subLength]
       if j == 0
@@ -27,7 +27,7 @@ drawPastFrequencyGraphs = (canvas) ->
       else if j == subLength - 1
         ctx.lineTo j * 1200 / subLength * reach, 500
       else
-        ctx.lineTo j * 1200 / subLength * reach, 500 - previous_frequency_data[i][j]
+        ctx.lineTo j * 1200 / subLength * reach, 500 - previousFrequencyData[i][j]
     ctx.lineWidth = 2
     ctx.strokeStyle = "#000"
     ctx.fillStyle = colors[i % 15]
@@ -41,7 +41,7 @@ drawPastFrequencyGraphs = (canvas) ->
       else if j == 0
         ctx.lineTo j * 1200 / subLength * reach, 0
       else
-        ctx.lineTo j * 1200 / subLength * reach, previous_frequency_data[i][j]
+        ctx.lineTo j * 1200 / subLength * reach, previousFrequencyData[i][j]
     ctx.lineWidth = 2
     ctx.strokeStyle = "#000"
     ctx.fillStyle = colors[i % 15]

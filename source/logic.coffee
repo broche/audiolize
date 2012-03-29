@@ -39,7 +39,7 @@ songChange = no
 # Flag for drawing squares or circles
 window.circles = yes
 
-window.previous_frequency_data = []
+window.previousFrequencyData = []
 
 window.requestAnimFrame =
   window.requestAnimationFrame or
@@ -142,11 +142,10 @@ audioLoaded = ->
 
   # Begin the visualizer.
   console.log $("#renderer")[0].value
-  # console.log main_render
   switch +$("#renderer")[0].value
-    when 1 then step visualCanvas, main_render
-    when 2 then step visualCanvas, layered_render
-    else step visualCanvas, main_render
+    when 1 then step visualCanvas, mainRender
+    when 2 then step visualCanvas, layeredRender
+    else step visualCanvas, mainRender
 
 step = (canvas, renderCallback) ->
   updateAnalyserData()
