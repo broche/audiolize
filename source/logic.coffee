@@ -11,7 +11,7 @@ posX = posY = 250
 # yes if at least one song has already been loaded
 already = no
 
-window.mouse_positions = []
+window.mousePositions = []
 window.colors = [
   "#1F6CA3"
   "#1F6CA3"
@@ -37,7 +37,7 @@ mouseDown = no
 songChange = no
 
 # Flag for drawing squares or circles
-circles = yes
+window.circles = yes
 
 window.previous_frequency_data = []
 
@@ -68,10 +68,10 @@ initializeEvents = ->
   $("#music").mousemove (e) ->
     posX = e.pageX - @offsetLeft
     posY = e.pageY - @offsetTop
-    mouse_positions.push [posX, posY]
+    mousePositions.push [posX, posY]
   $("#music").mousedown ->
     mouseDown = yes
-    circles = !circles
+    window.circles = !circles
   $("#music").mouseup ->
     mouseDown = no
   $("#song_select").children().click ->
