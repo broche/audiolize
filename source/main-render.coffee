@@ -2,7 +2,7 @@ globals = exports ? this
 
 globals.mainRender = (canvas, freq) ->
   ctx = canvas.getContext "2d"
-  ctx.clearRect 0, 0, 500, 500
+  ctx.clearRect 0, 0, canvas.width, canvas.height
 
   # Check to see if the checkbox assoociated with the corresponding visual is
   # checked. If it is, it renders the visual.
@@ -19,15 +19,15 @@ drawFrequencyGraphs = (canvas, length) ->
   ctx.beginPath()
   for i in [0...length]
     if i == 0
-      ctx.moveTo i * 1200 / length, 500
+      ctx.moveTo i * (canvas.width * 2.4) / length, canvas.height
     else if i == length - 1
-      ctx.lineTo i * 1200 / length, 500
+      ctx.lineTo i * (canvas.width * 2.4) / length, canvas.height
     else
-      ctx.lineTo i * 1200 / length, 500 - freqByteData[i]
+      ctx.lineTo i * (canvas.width * 2.4) / length, canvas.height - freqByteData[i]
   ctx.lineWidth = 2
   ctx.strokeStyle = "#000"
 
-  grd = ctx.createLinearGradient 0, 250, 0, 400
+  grd = ctx.createLinearGradient 0, canvas.height / 2, 0, canvas.height / 1.25
   grd.addColorStop 0, "#7573D9"  # light blue
   grd.addColorStop 1, "#0B0974"  # dark blue
   ctx.fillStyle = grd
@@ -38,14 +38,14 @@ drawFrequencyGraphs = (canvas, length) ->
   ctx.beginPath()
   for i in [length / 2..0]
     if i == length / 2
-      ctx.moveTo i * 1200 / length, 0
+      ctx.moveTo i * (canvas.width * 2.4) / length, 0
     else if i == 0
-      ctx.lineTo i * 1200 / length, 0
+      ctx.lineTo i * (canvas.width * 2.4) / length, 0
     else
-      ctx.lineTo i * 1200 / length, freqByteData[i]
+      ctx.lineTo i * (canvas.width * 2.4) / length, freqByteData[i]
   ctx.lineWidth = 2
   ctx.strokeStyle = "#000"
-  grd2 = ctx.createLinearGradient 0, 0, 0, 100
+  grd2 = ctx.createLinearGradient 0, 0, 0, canvas.height / 5
   grd2.addColorStop 0, "#A60000"
   grd2.addColorStop 1, "#FF7373"
   ctx.fillStyle = grd2
@@ -60,9 +60,9 @@ drawSpiral = (canvas, freq) ->
     angle = 0.5 * i
     x = (1 + angle) * Math.cos angle
     y = (1 + angle) + Math.sin angle
-    ctx.lineTo x + 250, y + 250
+    ctx.lineTo x + canvas.width / 2, y + canvas.height / 2
   ctx.strokeStyle = "black"
-  ctx.lineWidth = freq / 100
+  ctx.lineWidth = freq / canvas.width / 5
   ctx.stroke()
 
 drawCircles = (canvas, freq) ->
@@ -96,19 +96,19 @@ drawLineGraphs = (canvas, freq) ->
   # Array of average frequency data.
   averages.push freq
 
-  # Only store the most recent 250 mousePositions.
-  if averages.length > 250
+  # Only store the most recent (canvas.width / 2) frequency data averages.
+  if averages.length > canvas.width / 2
     averages.splice 0, 1
 
   # Draw the left graph.
   ctx.beginPath()
   for i in [0...averages.length]
     if i == 0
-      ctx.moveTo 0, 300 - averages[i] / 2
+      ctx.moveTo 0, (canvas.height / 1.66) - averages[i] / 2
     else if i == averages.length - 1
-      ctx.lineTo i, 300 - averages[i] / 2
+      ctx.lineTo i, (canvas.height / 1.66) - averages[i] / 2
     else
-      ctx.lineTo i, 300 - averages[i] / 2
+      ctx.lineTo i, (canvas.height / 1.66) - averages[i] / 2
   ctx.lineWidth = freq / 30
   ctx.strokeStyle = "red"
   ctx.stroke()
@@ -116,11 +116,11 @@ drawLineGraphs = (canvas, freq) ->
   # Draw the right graph.
   ctx.beginPath()
   count = 0
-  for i in [500..250]
-    if i == 500
-      ctx.moveTo i, 300 - averages[count] / 2
+  for i in [canvas.width..canvas.width / 2]
+    if i == canvas.width
+      ctx.moveTo i, (canvas.height / 1.66) - averages[count] / 2
     else
-      ctx.lineTo i, 300 - averages[count] / 2
+      ctx.lineTo i, (canvas.height / 1.66) - averages[count] / 2
     count++
   ctx.lineWidth = freq / 30
   ctx.strokeStyle = "blue"

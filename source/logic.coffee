@@ -59,7 +59,9 @@ globals.onload = ->
 
   # Display song selection prompt.
   ctx.font = "15pt Century Gothic"
-  ctx.fillText "choose a song below...", 140, 250
+  ctx.textAlign = "center"
+  ctx.fillText "choose a song below...", visualCanvas.width / 2, 
+    visualCanvas.height / 2
 
   initializeEvents()
 
@@ -79,16 +81,17 @@ initializeEvents = ->
   $("#song_select").children().click ->
     if not already
       ctx = visualCanvas.getContext "2d"
-      ctx.clearRect 0, 0, 500, 500
+      ctx.clearRect 0, 0, visualCanvas.width, visualCanvas.height
       ctx.font = "15pt Century Gothic"
       ctx.fillStyle = "red"
-      ctx.fillText "loading song...", 175, 250
+      ctx.textAlign = "center"
+      ctx.fillText "loading song...", visualCanvas.width / 2,
+         visualCanvas.height / 2
       already = yes
       $("#song_id").html @alt
       songUrl = "sounds/#{@id}.ogg"
       loadAudio songUrl
     else
-      console.log "here"
       source.buffer = audioBuffer
       source.noteOff 0
       songChange = yes
@@ -132,7 +135,7 @@ loadAudioBuffer = (url) ->
 audioLoaded = ->
   songChange = no
   ctx = visualCanvas.getContext "2d"
-  ctx.clearRect 0, 0, 500, 500
+  ctx.clearRect 0, 0, visualCanvas.width, visualCanvas.height
 
   # Connect the audio buffer to the source buffer.
   source.buffer = audioBuffer
@@ -161,10 +164,11 @@ step = (canvas, renderCallback) ->
   # stops until the new song is loaded.
   if songChange
     ctx = canvas.getContext "2d"
-    ctx.clearRect 0, 0, 500, 500
+    ctx.clearRect 0, 0, canvas.width, canvas.height
     ctx.font = "15pt Century Gothic"
     ctx.fillStyle = "red"
-    ctx.fillText "loading song...", 175, 250
+    ctx.textAlign = "center"
+    ctx.fillText "loading song...", canvas.width / 2, canvas.height / 2
   else
     requestAnimFrame ->
       step canvas, renderCallback
