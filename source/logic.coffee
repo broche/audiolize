@@ -88,11 +88,13 @@ initializeEvents = ->
       songUrl = "sounds/#{@id}.ogg"
       loadAudio songUrl
     else
+      console.log "here"
       source.buffer = audioBuffer
       source.noteOff 0
       songChange = yes
       $("#song_id").html @alt
       songUrl = "sounds/#{@id}.ogg"
+      loadAudio songUrl
   $("#song_select").children().mouseover ->
     if not already then $("#song_id").html @alt
   $("#song_select").children().mouseleave ->
