@@ -17,13 +17,10 @@ drawFrequencyGraphs = (canvas, length) ->
   # Draw the bottom frequency graph and calculates the average frequency for
   # other visualizations.
   ctx.beginPath()
-  for i in [0...length]
-    if i == 0
-      ctx.moveTo i * (canvas.width * 2.4) / length, canvas.height
-    else if i == length - 1
-      ctx.lineTo i * (canvas.width * 2.4) / length, canvas.height
-    else
-      ctx.lineTo i * (canvas.width * 2.4) / length, canvas.height - freqByteData[i]
+  ctx.moveTo 0, canvas.height
+  for i in [1...length-1]
+    ctx.lineTo i * (canvas.width * 2.4) / length, canvas.height - freqByteData[i]
+  ctx.lineTo length - 1 * (canvas.width * 2.4) / length, canvas.height
   ctx.lineWidth = 2
   ctx.strokeStyle = "#000"
 
@@ -36,13 +33,10 @@ drawFrequencyGraphs = (canvas, length) ->
 
   # Draw the upper frequency graph.
   ctx.beginPath()
-  for i in [length / 2..0]
-    if i == length / 2
-      ctx.moveTo i * (canvas.width * 2.4) / length, 0
-    else if i == 0
-      ctx.lineTo i * (canvas.width * 2.4) / length, 0
-    else
-      ctx.lineTo i * (canvas.width * 2.4) / length, freqByteData[i]
+  ctx.moveTo (length / 2) * (canvas.width * 2.4) / length, 0
+  for i in [length / 2 - 1...0]
+    ctx.lineTo i * (canvas.width * 2.4) / length, freqByteData[i]
+  ctx.lineTo 0, 0
   ctx.lineWidth = 2
   ctx.strokeStyle = "#000"
   grd2 = ctx.createLinearGradient 0, 0, 0, canvas.height / 5
@@ -102,13 +96,10 @@ drawLineGraphs = (canvas, freq) ->
 
   # Draw the left graph.
   ctx.beginPath()
-  for i in [0...averages.length]
-    if i == 0
-      ctx.moveTo 0, (canvas.height / 1.66) - averages[i] / 2
-    else if i == averages.length - 1
-      ctx.lineTo i, (canvas.height / 1.66) - averages[i] / 2
-    else
-      ctx.lineTo i, (canvas.height / 1.66) - averages[i] / 2
+  ctx.moveTo 0, (canvas.height / 1.66) - averages[i] / 2
+  for i in [1...averages.length - 1]
+    ctx.lineTo i, (canvas.height / 1.66) - averages[i] / 2
+  ctx.lineTo averages.length - 1, (canvas.height / 1.66) - averages[i] / 2
   ctx.lineWidth = freq / 30
   ctx.strokeStyle = "red"
   ctx.stroke()
@@ -116,11 +107,9 @@ drawLineGraphs = (canvas, freq) ->
   # Draw the right graph.
   ctx.beginPath()
   count = 0
-  for i in [canvas.width..canvas.width / 2]
-    if i == canvas.width
-      ctx.moveTo i, (canvas.height / 1.66) - averages[count] / 2
-    else
-      ctx.lineTo i, (canvas.height / 1.66) - averages[count] / 2
+  ctx.moveTo canvas.width, (canvas.height / 1.66) - averages[count] / 2
+  for i in [canvas.width + 1..canvas.width / 2]
+    ctx.lineTo i, (canvas.height / 1.66) - averages[count] / 2
     count++
   ctx.lineWidth = freq / 30
   ctx.strokeStyle = "blue"
