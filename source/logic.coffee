@@ -27,7 +27,7 @@ animate = ->
   stage.update()
   render()
 
-  requestAnimationFrame animate
+  requestAnimationFrame animate if stage.playing
 
 render = ->
   stage.render()
