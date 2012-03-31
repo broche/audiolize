@@ -20,6 +20,8 @@ class globals.audiolize.Audiolizer
 
     @loop = options.loop ? no
 
+    @playing = no
+
   setBuffer: (buffer, mixToMono = no) ->
     @audio.source.buffer = @audio.context.createBuffer buffer, mixToMono
 
@@ -28,12 +30,18 @@ class globals.audiolize.Audiolizer
 
   play: ->
     @audio.source.noteOn 0
+    @playing = yes
     @visualizationData = {}
     @visualizationData.frequency = new Uint8Array @audio.analyzer.frequencyBinCount
     @visualizationData.time = new Uint8Array @audio.analyzer.frequencyBinCount
     @update()
 
+  stop: ->
+    @audio.source.noteOff 0
+    @playing = no
+
   update: ->
+    return unless @playing
     @audio.analyzer.smoothingTimeConstant = 0.1
     @audio.analyzer.getByteFrequencyData @visualizationData.frequency
     @audio.analyzer.getByteTimeDomainData @visualizationData.time
@@ -49,7 +57,7 @@ class globals.audiolize.Audiolizer
     context.fill()
 
   render: ->
-    return if not @canvasID?
+    return if not @canvasID? or not @playing
 
     @clear() if @autoClear is on
     canvas = document.getElementById @canvasID

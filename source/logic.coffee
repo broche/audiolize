@@ -2,6 +2,12 @@ globals = exports ? this
 
 stage = null
 
+$ ->
+  init()
+  setTimeout ->
+    stage.stop()
+  , 30 * 1000
+
 init = ->
   stage = new audiolize.Audiolizer loop: off, clearColor: 0xAAAAAA
   stage.autoClear = on
@@ -25,6 +31,3 @@ animate = ->
 
 render = ->
   stage.render()
-
-$ ->
-  init()

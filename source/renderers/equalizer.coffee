@@ -12,7 +12,7 @@ globals.audiolize.renderers.equalizer =
 drawGraph = (canvas, data, i, length) ->
   ctx = canvas.getContext "2d"
   ctx.beginPath()
-  grd = ctx.createLinearGradient(0, 0, 0, canvas.height);
+  grd = ctx.createLinearGradient 0, 0, 0, canvas.height
   grd.addColorStop 0, "#FF6840"
   grd.addColorStop 0.6, "#FFFA73"
   grd.addColorStop 1, "#35D59D"
