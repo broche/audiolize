@@ -3,8 +3,11 @@ globals = exports ? this
 stage = null
 
 init = ->
-  stage = new audiolize.Audiolizer loop: off
-  stage.autoClear = yes
+  stage = new audiolize.Audiolizer loop: off, clearColor: 0xAAAAAA
+  stage.autoClear = on
+  stage.canvasID = "music"
+  stage.addRenderer audiolize.renderers.equalizer
+
   request = new XMLHttpRequest()
   request.open "GET", "sounds/Sanxion7 - EternuS (Remastered).ogg", true
   request.responseType = "arraybuffer"
@@ -15,14 +18,12 @@ init = ->
   request.send()
 
 animate = ->
-  # console.log "animating"
   stage.update()
   render()
 
   requestAnimationFrame animate
 
 render = ->
-  # console.log "rendering"
   stage.render()
 
 $ ->

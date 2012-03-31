@@ -1,6 +1,7 @@
 globals = exports ? this
 
 globals.audiolize ?= {}
+globals.audiolize.renderers ?= {}
 
 class globals.audiolize.Audiolizer
   constructor: (options) ->
@@ -21,6 +22,9 @@ class globals.audiolize.Audiolizer
 
   setBuffer: (buffer, mixToMono = no) ->
     @audio.source.buffer = @audio.context.createBuffer buffer, mixToMono
+
+  addRenderer: (renderer) ->
+    @renderers.push renderer
 
   play: ->
     @audio.source.noteOn 0
@@ -48,6 +52,6 @@ class globals.audiolize.Audiolizer
     return if not @canvasID?
 
     @clear() if @autoClear is on
-    canvas = document.getElementByID @canvasID
+    canvas = document.getElementById @canvasID
     for renderer in @renderers
       renderer.render canvas, @visualizationData
