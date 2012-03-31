@@ -1,6 +1,8 @@
 globals = exports ? this
 
-class globals.Audiolize
+globals.audiolize ?= {}
+
+class globals.audiolize.Audiolizer
   constructor: (options) ->
     @audio = {}
     @audio.context = new globals.webkitAudioContext()
@@ -9,7 +11,6 @@ class globals.Audiolize
     @audio.analyzer.fftSize = 1024
     @audio.source.connect @audio.analyzer
     @audio.analyzer.connect @audio.context.destination
-    # Load audio buffer
 
     @renderers = []
 
@@ -23,10 +24,10 @@ class globals.Audiolize
 
   play: ->
     @audio.source.noteOn 0
+    @visualizationData = {}
     @visualizationData.frequency = new Uint8Array @audio.analyzer.frequencyBinCount
     @visualizationData.time = new Uint8Array @audio.analyzer.frequencyBinCount
     @update()
-    @render()
 
   update: ->
     @audio.analyzer.smoothingTimeConstant = 0.1
