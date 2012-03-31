@@ -3,25 +3,53 @@ body{
 	font-family: Century Gothic, sans-serif;
 	margin: 0px;
 	padding: 0px;
-	background-image: url(http://subtlepatterns.com/patterns/subtle_zebra_3d.png);
+	background-image: url(http://subtlepatterns.com/patterns/fancy_deboss.png);
 	text-align: center;
 }
 header{
 	margin: 30px auto 15px auto;
-	font-weight: bold;
+}
+hr{
+	padding: 1px;
+	margin: 1px;
 }
 canvas{
-	margin: 3px auto 5px auto;
-	background-color: #BFBFBF;
-	-moz-box-shadow: 0px 2px 5px #000000;
-	-webkit-box-shadow: 0px 2px 5px #000000;
-	box-shadow: 0px 2px 5px #000000;
+	margin: 75px auto 5px auto;
+	background-image: url(http://subtlepatterns.com/patterns/snow.png);
+	-moz-box-shadow: 0px 0px 5px #000000;
+	-webkit-box-shadow: 0px 0px 5px #000000;
+	box-shadow: 0px 0px 5px #000000;
 	z-index: -200;
 }
-select{
+#controls{
 	position: absolute;
 	left: 5;
 	top: 5;
+	padding: 2px 2px;
+	margin: 0px;
+
+}
+#song_id{
+	position: absolute;
+	right: 5;
+	top: 3;
+	margin: 2px;
+}
+a:link{
+	font-style: normal;
+	text-decoration: none;
+	color: "#1E2123";
+}
+a:hover{
+	color: "red";
+}
+a:visited{
+	color: "red";
+}
+h1, h5{
+	text-align: left;
+	margin: 2px;
+	padding: 0px;
 }
 img{
 	height: 68px;
@@ -48,18 +76,22 @@ img:hover{
 	width: 500px;
 	text-align: left;
 }
+hr{
+	margin: 5px auto;
+	width: 550px;
+}
 #menu{
-	text-align: left;
-	width: 650px;
 	margin: 5px auto;
 }
 ul{
 	list-style-type: none;
 	display: inline;
+	margin: 0px;
+	padding: 0px;
 }
 li{
 	display: inline;
-	margin-right: 10px;
+	margin-right: 15px;
 	padding: 5px;
 }
 #volume{
@@ -69,4 +101,11 @@ li{
 	margin: 10px auto;
 	width: 510px;
 	padding: 5px;
+}
+select{
+	width: 100px;
+    border:1px solid #000;
+    background:#fff;
+    -webkit-border-radius:0;
+    border-radius:0;
 }

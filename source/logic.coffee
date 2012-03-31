@@ -13,6 +13,8 @@ posX = posY = 250
 # yes if at least one song has already been loaded
 already = no
 
+currentSongId = ""
+
 globals.mousePositions = []
 globals.colors = [
   "#1F6CA3"
@@ -37,6 +39,7 @@ mouseDown = no
 # Signals to the step loop if a new song has been selected to stop
 # visulaization.
 songChange = no
+renderChange = no
 
 # Flag for drawing squares or circles
 globals.circles = yes
@@ -90,18 +93,27 @@ initializeEvents = ->
       already = yes
       $("#song_id").html @alt
       songUrl = "sounds/#{@id}.ogg"
+      currentSongId = @alt
       loadAudio songUrl
     else
       source.buffer = audioBuffer
       source.noteOff 0
       songChange = yes
+      currentSongId = @alt
       $("#song_id").html @alt
       songUrl = "sounds/#{@id}.ogg"
       loadAudio songUrl
   $("#song_select").children().mouseover ->
-    if not already then $("#song_id").html @alt
+    $("#song_id").html @alt
   $("#song_select").children().mouseleave ->
-    if not already then $("#song_id").html "song info"
+    $("#song_id").html currentSongId
+  $("#renderer").change ->
+    renderChange = yes
+
+    if +$("#renderer")[0].value is 1
+      $("#menu").show()
+    else
+      $("#menu").hide()
 
 loadAudio = (url) ->
   # Create a buffer for the audio.
@@ -125,7 +137,7 @@ loadAudioBuffer = (url) ->
   request = new XMLHttpRequest()
   request.open "GET", url, true
   request.responseType = "arraybuffer"
-
+  
   request.onload = ->
     # Create a buffer for the audio that was brought in.
     audioBuffer = audioContext.createBuffer request.response, false
@@ -152,6 +164,8 @@ audioLoaded = ->
   switch +$("#renderer")[0].value
     when 1 then step visualCanvas, mainRender
     when 2 then step visualCanvas, layeredRender
+    when 3 then step visualCanvas, equalizerRender
+    when 4 then step visualCanvas, stereoRender
     else step visualCanvas, mainRender
 
 step = (canvas, renderCallback) ->
@@ -168,8 +182,15 @@ step = (canvas, renderCallback) ->
     ctx.font = "15pt Century Gothic"
     ctx.fillStyle = "red"
     ctx.textAlign = "center"
-    ctx.fillText "loading song...", canvas.width / 2, canvas.height / 2
+    ctx.fillText "loading song...", canvas.width / 2, canvas.height / 2 
   else
+    if renderChange
+      switch +$("#renderer")[0].value
+        when 1 then renderCallback = mainRender
+        when 2 then renderCallback = layeredRender
+        when 3 then renderCallback = equalizerRender
+        when 4 then renderCallback = stereoRender
+      renderChange = no
     requestAnimFrame ->
       step canvas, renderCallback
 

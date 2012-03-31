@@ -5,12 +5,14 @@
 		<script type="text/javascript" src="javascript/library/jquery.js"></script>
 		<script type="text/javascript" src="javascript/build/main-render.js"></script>
 		<script type="text/javascript" src="javascript/build/layered-render.js"></script>
+		<script type="text/javascript" src="javascript/build/equalizer-render.js"></script>
+		<script type="text/javascript" src="javascript/build/stereo-render.js"></script>
 		<script type="text/javascript" src="javascript/build/logic.js"></script>
+
 	</head>
 	<body>
-
-		<header id="song_id">song info</header>
-		<canvas id="music" width="800" height="500"></canvas>
+		<section id="song_id"></section>
+		<canvas id="music" width="640" height="400"></canvas>
 		<section id="song_select">
 			<img id="inception" alt="Mind Heist - Zack Hemsey" src="img/inception.jpg"></img>
 			<img id="ratatat" alt="Nostrand - Ratatat" src="img/ratatat.jpg"`></img>
@@ -20,29 +22,46 @@
 			<img id="dub" alt="Money - Easy All Stars" src="img/dub.jpg"></img>
 			<img id="Pete" alt="Pete's Jazz - Pete Rock"src="img/pete.jpg"></img>
 		</section>
-
+		<hr>
 		<section id="menu">
 			<ul>
 				<li>
 					<input id="freq_graphs" type="checkbox" checked="checked">frequency graphs</input>
 				</li>
 				<li>
-					<input id="circles" type="checkbox" checked="checked">trailing circles</input>
+					<input id="circles" type="checkbox" checked="checked">trail circles</input>
 				</li>
 				<li>
 					<input id="bar_graphs" type="checkbox" checked="checked">line graphs</input>
 				</li>
 				<li>
-					<input id="background" type="checkbox">background</input>
-				</li>
-				<li>
-					<select id="renderer">
-						<option value="1">basic renderer</option>
-						<option value="2">layered renderer</option>
-					</select>
+					<input id="spiral" type="checkbox">spiral</input>
 				</li>
 			</ul>
-			
 		</section>
+
+		<section id="controls">
+			<h1><a href="https://github.com/broche/audiolize">audiolize</a></h1>
+			<select id="renderer">
+				<option value="1">multi</option>
+				<option value="2">layered</option>
+				<option value="3">equalizer</option>
+			</select>
+			<!-- <form>
+				<label for="s_width">Width</label>
+				<input id="s_width" type="range" min="100" max="1800" step="1" onchange="update_width(this.value)" />
+				<label for="s_height">Height</label>
+				<input id="s_height" type="range" min="100" max="1000" step="1" onchange="update_height(this.value)" />
+			</form> -->
+		</section>
+
+		<!-- <script type="text/javascript">
+		 	function update_width(value) {
+		 		$("#music")[0].width = parseInt(value);
+		 	}
+		 	function update_height(value) {
+		 		$("#music")[0].height = parseInt(value);
+		 	}
+		</script> -->
 	</body>
 </html>

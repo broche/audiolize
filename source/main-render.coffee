@@ -6,7 +6,7 @@ globals.mainRender = (canvas, freq) ->
 
   # Check to see if the checkbox assoociated with the corresponding visual is
   # checked. If it is, it renders the visual.
-  if $("#background").attr "checked" then drawSpiral canvas, freq
+  if $("#spiral").attr "checked" then drawSpiral canvas, freq
   if $("#freq_graphs").attr "checked" then drawFrequencyGraphs canvas, freqByteData.length
   if $("#circles").attr "checked" then drawCircles canvas, freq
   if $("#bar_graphs").attr "checked" then drawLineGraphs canvas, freq
@@ -50,13 +50,13 @@ drawFrequencyGraphs = (canvas, length) ->
 drawSpiral = (canvas, freq) ->
   ctx = canvas.getContext "2d"
   ctx.beginPath()
-  for i in [0...720]
+  for i in [0...canvas.width / 0.66]
     angle = 0.5 * i
     x = (1 + angle) * Math.cos angle
     y = (1 + angle) + Math.sin angle
-    ctx.lineTo x + canvas.width / 2, y + canvas.height / 2
+    ctx.lineTo x + canvas.width / 2, y + canvas.width / 2
   ctx.strokeStyle = "black"
-  ctx.lineWidth = freq / canvas.width / 5
+  ctx.lineWidth = freq / (canvas.width / 5)
   ctx.stroke()
 
 drawCircles = (canvas, freq) ->

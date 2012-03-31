@@ -22,9 +22,9 @@ drawPastFrequencyGraphs = (canvas) ->
     subLength = previousFrequencyData[i].length
     ctx.beginPath()
     ctx.moveTo 0, canvas.height
-    for j in [1...subLength - 1]
-      ctx.lineTo j * (canvas.width / 2.4) / subLength * reach, canvas.height - previousFrequencyData[i][j]
-    ctx.lineTo (subLength - 1) * (canvas.width / 2.4) / subLength * reach, canvas.height
+    for j in [50...150]
+      ctx.lineTo (j - 50) * (canvas.width / 2.4) / 100 * reach, canvas.height - previousFrequencyData[i][j]
+    ctx.lineTo (subLength - 1) * (canvas.width / 2.4) / 100 * reach, canvas.height
     ctx.lineWidth = 2
     ctx.strokeStyle = "#000"
     ctx.fillStyle = colors[i % 15]
@@ -32,9 +32,9 @@ drawPastFrequencyGraphs = (canvas) ->
     ctx.fill()
 
     ctx.beginPath()
-    ctx.moveTo (subLength / 2) * (canvas.width / 2.4) / subLength * reach, 0
-    for j in [subLength / 2 + 1...0]
-      ctx.lineTo j * (canvas.width / 2.4) / subLength * reach, previousFrequencyData[i][j]
+    ctx.moveTo (subLength / 2) * (canvas.width / 2.4) / 100 * reach, 0
+    for j in [150...50]
+      ctx.lineTo (j - 50) * (canvas.width / 2.4) / 100 * reach, previousFrequencyData[i][j]
     ctx.lineTo 0, 0
     ctx.lineWidth = 2
     ctx.strokeStyle = "#000"
