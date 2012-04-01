@@ -46,7 +46,7 @@ class globals.audiolize.Audiolizer
     @audio.analyzer.getByteFrequencyData @visualizationData.frequency
     @audio.analyzer.getByteTimeDomainData @visualizationData.time
     for renderer in @renderers
-      renderer.update?()
+      renderer.update? @visualizationData
 
   clear: ->
     canvas = document.getElementById @canvasID
