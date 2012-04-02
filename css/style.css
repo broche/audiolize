@@ -9,10 +9,6 @@ body{
 header{
 	margin: 30px auto 15px auto;
 }
-hr{
-	padding: 1px;
-	margin: 1px;
-}
 canvas{
 	margin: 75px auto 5px auto;
 	background-image: url(http://subtlepatterns.com/patterns/snow.png);
@@ -71,17 +67,6 @@ img:hover{
 	opacity: 1;
 	-moz-opacity: 1;
 	filter:alpha(opacity=10);
-}
-#files{
-	width: 500px;
-	text-align: left;
-}
-hr{
-	margin: 5px auto;
-	width: 550px;
-}
-#menu{
-	margin: 5px auto;
 }
 ul{
 	list-style-type: none;

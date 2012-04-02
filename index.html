@@ -6,51 +6,38 @@
 		<script type="text/javascript" src="javascript/library/RequestAnimationFrame.js"></script>
 
 		<script type="text/javascript" src="javascript/build/audiolize.js"></script>
-		<script type="text/javascript" src="javascript/build/renderers/equalizer.js"></script>		
 
-		<script type="text/javascript" src="javascript/build/main-render.js"></script>
-		<script type="text/javascript" src="javascript/build/layered-render.js"></script>
-		<script type="text/javascript" src="javascript/build/equalizer-render.js"></script>
-		<script type="text/javascript" src="javascript/build/stereo-render.js"></script>
+		<script type="text/javascript" src="javascript/build/renderers/equalizer.js"></script>		
+		<script type="text/javascript" src="javascript/build/renderers/layered.js"></script>	
+		<script type="text/javascript" src="javascript/build/renderers/stereo.js"></script>
+		<script type="text/javascript" src="javascript/build/renderers/circles.js"></script>
+		<script type="text/javascript" src="javascript/build/renderers/lines.js"></script>
+		<script type="text/javascript" src="javascript/build/renderers/hills.js"></script>
+
 		<script type="text/javascript" src="javascript/build/logic.js"></script>
 
 	</head>
 	<body>
 		<section id="song_id"></section>
-		<canvas id="music" width="640" height="400"></canvas>
+		<canvas id="visualStage" width="640" height="400"></canvas>
 		<section id="song_select">
-			<img id="inception" alt="Mind Heist - Zack Hemsey" src="img/inception.jpg"></img>
-			<img id="ratatat" alt="Nostrand - Ratatat" src="img/ratatat.jpg"`></img>
+			<img id="Inception" alt="Mind Heist - Zack Hemsey" src="img/inception.jpg"></img>
+			<img id="Ratatat" alt="Nostrand - Ratatat" src="img/ratatat.jpg"`></img>
 			<img id="Zeds" alt="White Satin - Zed's Dead" src="img/zeds.jpg"></img>
-			<img id="booty" alt="Hard To Resist - Booty Thrill" src="img/booty.jpg"></img>
-			<img id="gorillaz" alt="Empire Ants Featuring: Little Dragon - Gorillaz" src="img/gorillaz.jpg"></img>
-			<img id="dub" alt="Money - Easy All Stars" src="img/dub.jpg"></img>
+			<img id="Booty" alt="Hard To Resist - Booty Thrill" src="img/booty.jpg"></img>
+			<img id="Gorillaz" alt="Empire Ants Featuring: Little Dragon - Gorillaz" src="img/gorillaz.jpg"></img>
+			<img id="Dub" alt="Money - Easy All Stars" src="img/dub.jpg"></img>
 			<img id="Pete" alt="Pete's Jazz - Pete Rock"src="img/pete.jpg"></img>
 		</section>
-		<hr>
-		<section id="menu">
-			<ul>
-				<li>
-					<input id="freq_graphs" type="checkbox" checked="checked">frequency graphs</input>
-				</li>
-				<li>
-					<input id="circles" type="checkbox" checked="checked">trail circles</input>
-				</li>
-				<li>
-					<input id="bar_graphs" type="checkbox" checked="checked">line graphs</input>
-				</li>
-				<li>
-					<input id="spiral" type="checkbox">spiral</input>
-				</li>
-			</ul>
-		</section>
-
 		<section id="controls">
 			<h1><a href="https://github.com/broche/audiolize">audiolize</a></h1>
 			<select id="renderer">
 				<option value="1">multi</option>
 				<option value="2">layered</option>
 				<option value="3">equalizer</option>
+				<option value="4">circles</option>
+				<option value="5">hills</option>
+				<option value="6">lines</option>
 			</select>
 			<!-- <form>
 				<label for="s_width">Width</label>
