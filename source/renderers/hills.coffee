@@ -14,8 +14,8 @@ drawFrequencyGraphs = (canvas, frequency) ->
   ctx.beginPath()
   ctx.moveTo 0, canvas.height
   for i in [25...150]
-    ctx.lineTo (i - 25) * (canvas.width) / LENGTH, canvas.height - frequency[i]
-  ctx.lineTo LENGTH * (canvas.width) / LENGTH, canvas.height
+    ctx.lineTo (i - 25) * canvas.width / LENGTH, canvas.height - frequency[i]
+  ctx.lineTo canvas.width, canvas.height
   ctx.lineWidth = 2
   ctx.strokeStyle = "#000"
   grd = ctx.createLinearGradient 0, canvas.height / 2, 0, canvas.height / 1.25
@@ -27,9 +27,9 @@ drawFrequencyGraphs = (canvas, frequency) ->
 
   # Draw the upper frequency graph.
   ctx.beginPath()
-  ctx.moveTo LENGTH * (canvas.width) / LENGTH, 0
+  ctx.moveTo canvas.width, 0
   for i in [150...25]
-    ctx.lineTo (i - 25) * (canvas.width) / LENGTH, frequency[i]
+    ctx.lineTo (i - 25) * canvas.width / LENGTH, frequency[i]
   ctx.lineTo 0, 0
   ctx.lineWidth = 2
   ctx.strokeStyle = "#000"

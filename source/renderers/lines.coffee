@@ -8,17 +8,13 @@ globals.audiolize.renderers.lines =
   render: (canvas, data) ->
     drawLineGraphs canvas, getAverageOf data.frequency
 
+  update: (data) ->
+    averages.push getAverageOf data.frequency
+    if averages.length > canvas.width / 2
+      averages.splice 0, 1
 
 drawLineGraphs = (canvas, freq) ->
   ctx = canvas.getContext "2d"
-
-  # Array of average frequency data.
-  averages.push freq
-
-  # Only store the most recent (canvas.width / 2) frequency data averages.
-  if averages.length > canvas.width / 2
-    averages.splice 0, 1
-
   # Draw the left graph.
   ctx.beginPath()
   ctx.moveTo 0, (canvas.height / YSCALE) - averages[i] / 2
